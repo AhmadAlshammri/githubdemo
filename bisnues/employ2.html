@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="محادثة بين المدير والموظف">
+    <title>محادثة المدير مع الموظف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #6a4e3a;
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            width: 100%;
+            border-bottom: 5px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu a {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .menu i {
+            margin-right: 5px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+            border-top: 4px solid #6a4e3a;
+        }
+
+        .chat-header {
+            background-color: #6a4e3a;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-body {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-message {
+            max-width: 75%;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #e0e0e0;
+            align-self: flex-start;
+            word-wrap: break-word;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .chat-message.manager {
+            background-color: #cce5ff;
+            align-self: flex-end;
+        }
+
+        .chat-message:hover {
+            transform: translateX(5px);
+        }
+
+        .chat-footer {
+            display: flex;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-footer input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-right: 15px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .chat-footer input[type="text"]:focus {
+            border-color: #6a4e3a;
+        }
+
+        .file-label {
+            background-color: #6a4e3a;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .file-label:hover {
+            background-color: #3c2a1d;
+        }
+
+        .send-btn {
+            background-color: #6a4e3a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: #3c2a1d;
+        }
+
+        .services-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 50px;
+        }
+
+        .service-box {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .service-box .icon {
+            font-size: 40px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .service-box h3 {
+            font-size: 24px;
+            color: #8d6e63;
+            margin-bottom: 10px;
+        }
+
+        .service-box p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .service-box a {
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .service-box a:hover {
+            color: #45a049;
+        }
+
+        .text-analysis-container, .audio-analysis-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .text-analysis-container h3, .audio-analysis-container h3 {
+            color: #6a4e3a;
+            margin-bottom: 10px;
+        }
+
+        .file-upload {
+            margin-bottom: 20px;
+        }
+
+        .text-analysis-container textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i> تواصل معنا عبر واتساب</a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> إنستجرام</a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i> تويتر</a>
+            <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i> تيك توك</a>
+        </div>
+        <h1>محادثة مع الموظف</h1>
+    </header>
+
+    <div class="chat-container">
+        <div class="chat-header">محادثة مع الموظف</div>
+        <div class="chat-body" id="chat-body">
+            <!-- الرسائل ستظهر هنا -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="message-input" placeholder="اكتب رسالتك...">
+            <label for="file-input" class="file-label"><i class="fa fa-paperclip"></i></label>
+            <input type="file" id="file-input" onchange="sendFile(event)">
+            <button class="send-btn" onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+
+    <div class="services-container">
+        <div class="service-box">
+            <div class="icon"><i class="fas fa-user-cog"></i></div>
+            <h3>إدارة الحسابات</h3>
+            <p>إدارة حسابات الموظفين، تحديث البيانات والمعلومات الشخصية.</p>
+            <a href="#">إذهب إلى الخدمة</a>
+        </div>
+        <div class="service-box">
+            <div class="icon"><i class="fas fa-clipboard-list"></i></div>
+            <h3>إدارة المشاريع</h3>
+            <p>متابعة المشاريع الخاصة بالموظف، تحديد المهام والمواعيد النهائية.</p>
+            <a href="#">إذهب إلى الخدمة</a>
+        </div>
+        <div class="service-box">
+            <div class="icon"><i class="fas fa-bell"></i></div>
+            <h3>إرسال تنبيهات</h3>
+            <p>إرسال إشعارات وتنبيهات للموظف بشأن المواعيد والمواعيد النهائية.</p>
+            <a href="#">إذهب إلى الخدمة</a>
+        </div>
+        <div class="service-box">
+            <div class="icon"><i class="fas fa-tasks"></i></div>
+            <h3>متابعة الأداء</h3>
+            <p>مراقبة أداء الموظف وتقديم الملاحظات والتقارير الدورية.</p>
+            <a href="#">إذهب إلى الخدمة</a>
+        </div>
+        
+        <!-- إضافة خدمة تحليل النص -->
+        <div class="service-box text-analysis-container">
+            <h3>تحليل النص</h3>
+            <textarea placeholder="أضف النص هنا لتحليله..."></textarea>
+            <div class="file-upload">
+                <label for="text-file-input" class="file-label"><i class="fa fa-paperclip"></i> إرفاق ملف نصي</label>
+                <input type="file" id="text-file-input">
+            </div>
+            <button class="send-btn">تحليل النص</button>
+        </div>
+
+        <!-- إضافة خدمة تحليل الصوت -->
+        <div class="service-box audio-analysis-container">
+            <h3>تحليل الصوت</h3>
+            <label for="audio-file-input" class="file-label"><i class="fa fa-microphone"></i> إرفاق ملف صوتي</label>
+            <input type="file" id="audio-file-input">
+            <button class="send-btn">تحليل الصوت</button>
+        </div>
+    </div>
+
+    <script>
+        // Script for sending message
+        function sendMessage() {
+            const messageInput = document.getElementById("message-input");
+            const chatBody = document.getElementById("chat-body");
+            const message = messageInput.value;
+
+            if (message.trim() !== "") {
+                const newMessage = document.createElement("div");
+                newMessage.classList.add("chat-message");
+                newMessage.classList.add("manager");
+                newMessage.textContent = message;
+                chatBody.appendChild(newMessage);
+                chatBody.scrollTop = chatBody.scrollHeight;
+                messageInput.value = "";
+            }
+        }
+
+        // Function to handle file input
+        function sendFile(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const fileMessage = document.createElement("div");
+                fileMessage.classList.add("chat-message");
+                fileMessage.classList.add("manager");
+                fileMessage.textContent = `تم إرسال ملف: ${file.name}`;
+                document.getElementById("chat-body").appendChild(fileMessage);
+            }
+        }
+    </script>
+</body>
+
+</html>
+pip install Flask Flask-MySQL

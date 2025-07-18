@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="محادثة بين المدير والموظف">
+    <title>محادثة المدير مع الموظف</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* إضافة التنسيق الخاص بك هنا */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: flex-start;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #6a4e3a;
+            padding: 20px 0;
+            color: white;
+            text-align: center;
+            width: 100%;
+            border-bottom: 5px solid #fff;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .menu {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .menu a {
+            color: white;
+            font-size: 18px;
+            text-decoration: none;
+        }
+
+        .menu i {
+            margin-right: 5px;
+        }
+
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            margin-top: 30px;
+            border-top: 4px solid #6a4e3a;
+        }
+
+        .chat-header {
+            background-color: #6a4e3a;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            text-align: center;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .chat-body {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-message {
+            max-width: 75%;
+            padding: 12px;
+            border-radius: 10px;
+            background-color: #e0e0e0;
+            align-self: flex-start;
+            word-wrap: break-word;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .chat-message.manager {
+            background-color: #cce5ff;
+            align-self: flex-end;
+        }
+
+        .chat-message:hover {
+            transform: translateX(5px);
+        }
+
+        .chat-footer {
+            display: flex;
+            padding: 15px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+        }
+
+        .chat-footer input[type="text"] {
+            flex-grow: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            margin-right: 15px;
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .chat-footer input[type="text"]:focus {
+            border-color: #6a4e3a;
+        }
+
+        .send-btn {
+            background-color: #6a4e3a;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background-color: #3c2a1d;
+        }
+
+        /* قائمة الخدمات (تحليل نص، الصوت، تقييم) */
+        .services-container {
+            margin-top: 20px;
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .services-container h3 {
+            margin-bottom: 10px;
+        }
+
+        .service-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .service-item:hover {
+            background-color: #f1f1f1;
+        }
+
+        .service-item i {
+            margin-left: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="menu">
+            <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i> واتساب</a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i> إنستجرام</a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i> تويتر</a>
+            <a href="https://tiktok.com" target="_blank"><i class="fab fa-tiktok"></i> تيك توك</a>
+        </div>
+        <h1>محادثة مع الموظف</h1>
+    </header>
+
+    <!-- قائمة جهات الاتصال -->
+    <div class="contacts-container">
+        <h3>جهات الاتصال</h3>
+        <ul id="contacts-list">
+            <!-- سيتم ملء هذه القائمة بواسطة JavaScript -->
+        </ul>
+    </div>
+
+    <div class="chat-container">
+        <div class="chat-header">محادثة مع الموظف</div>
+        <div class="chat-body" id="chat-body">
+            <!-- الرسائل ستظهر هنا -->
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="message-input" placeholder="اكتب رسالتك...">
+            <button class="send-btn" onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+
+    <!-- قائمة الخدمات (تحليل نص، الصوت، تقييم) -->
+    <div class="services-container">
+        <h3>الخدمات</h3>
+        <div class="service-item" onclick="analyzeText()">
+            <span>تحليل النص</span>
+            <i class="fas fa-text-height"></i>
+        </div>
+        <div class="service-item" onclick="analyzeVoice()">
+            <span>تحليل الصوت</span>
+            <i class="fas fa-microphone"></i>
+        </div>
+        <div class="service-item" onclick="rateService()">
+            <span>تقييم الخدمة</span>
+            <i class="fas fa-star"></i>
+        </div>
+    </div>
+
+    <script>
+        // جلب جهات الاتصال من الخادم
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('/contacts')
+                .then(response => response.json())
+                .then(data => {
+                    const contactsList = document.getElementById("contacts-list");
+                    data.forEach(contact => {
+                        const contactItem = document.createElement("li");
+                        contactItem.textContent = contact.name;
+                        contactItem.onclick = () => startChat(contact.id, contact.name);
+                        contactsList.appendChild(contactItem);
+                    });
+                });
+        });
+
+        // بدء المحادثة مع موظف أو مدير
+        let selectedContactId = null;
+        function startChat(contactId, contactName) {
+            selectedContactId = contactId;
+            document.querySelector(".chat-header").textContent = "محادثة مع " + contactName;
+            loadMessages(contactId);
+        }
+
+        // جلب الرسائل من الخادم
+        function loadMessages(contactId) {
+            fetch(`/getMessages?sender_id=1&receiver_id=${contactId}`)
+                .then(response => response.json())
+                .then(messages => {
+                    const chatBody = document.getElementById("chat-body");
+                    chatBody.innerHTML = '';
+                    messages.forEach(message => {
+                        const messageElement = document.createElement("div");
+                        messageElement.classList.add("chat-message");
+                        messageElement.textContent = message.message;
+                        chatBody.appendChild(messageElement);
+                    });
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                });
+        }
+
+        // إرسال الرسالة إلى الخادم
+        function sendMessage() {
+            const messageInput = document.getElementById("message-input");
+            const message = messageInput.value;
+            if (message.trim() !== "" && selectedContactId !== null) {
+                fetch('/sendMessage', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        sender_id: 1, // افترض أن الرقم هو 1 (المدير)
+                        receiver_id: selectedContactId,
+                        message: message
+                    })
+                }).then(response => response.json())
+                  .then(data => {
+                      if (data.success) {
+                          loadMessages(selectedContactId);
+                          messageInput.value = '';
+                      }
+                  });
+            }
+        }
+
+        // تحليل النص
+        function analyzeText() {
+            alert("تحليل النص قيد التطوير.");
+        }
+
+        // تحليل الصوت
+        function analyzeVoice() {
+            alert("تحليل الصوت قيد التطوير.");
+        }
+
+        // تقييم الخدمة
+        function rateService() {
+            alert("التقييم قيد التطوير.");
+        }
+    </script>
+</body>
+</html>
